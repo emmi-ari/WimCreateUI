@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DismImagingGUI": {
+      "commandName": "Project",
+      "commandLineArgs": "/WimPath C:\\Users\\Ari\\Desktop\\out.wim /CapturePath \"C:\\Users\\Ari\\Desktop\\New folder\" /Compression 0 /DirAcl /Verify"
+    }
+  }
+}
