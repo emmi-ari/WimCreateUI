@@ -10,7 +10,7 @@ internal partial class MainWindow : Form
 
     internal WimCompressionType CompressionType = WimCompressionType.Xpress;
 
-    internal bool DirAcl = false;
+    internal bool DirAcl = false; 
 
     internal bool FileAcl = false;
 
@@ -23,15 +23,14 @@ internal partial class MainWindow : Form
         Initialize();
     }
 
-    internal MainWindow(string wimPath, string capturePath, uint compressionType, bool? dirAcl, bool? fileAcl, bool? noRpFix, bool? verify)
+    internal MainWindow(string wimPath, string capturePath, int compressionType, bool? dirAcl, bool? fileAcl, bool? noRpFix, bool? verify)
     {
         Initialize();
         WimPath_TextBox.Text = wimPath;
         CapturePath_TextBox.Text = capturePath;
-        CompressLvl_ComboBox.SelectedIndex = (int)compressionType;
-        //CompressionType = (WimCompressionType)compressionType;
+        CompressLvl_ComboBox.SelectedIndex = compressionType;
         if (dirAcl != null)
-            DirectoryAcl_CheckBox.Checked = (bool)dirAcl;
+            DirectoryAcl_CheckBox.Checked = dirAcl ?? (bool)dirAcl;
         if (fileAcl != null)
             FileAcl_CheckBox.Checked = (bool)fileAcl;
         if (noRpFix != null)
