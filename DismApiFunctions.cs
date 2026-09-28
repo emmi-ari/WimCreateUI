@@ -22,16 +22,17 @@ public static class DismApiFunctions
             throw new DirectoryNotFoundException("Source directory does not exist or is inaccessible.");
 
         dynamic options = (verify ? 2u : 0u) + (directoryAcl ? 16u : 0u) + (fileAcl ? 32u : 0u) + (reparseFix ? 256u : 0u);
-        WimCreateFileOptions fileCreationOptions = WimCreateFileOptions.ShareWrite + (verify ? 2u : 0);
-        WimFileAccess accessMode = (int)imagingMode == 1 ? WimFileAccess.Write : WimFileAccess.Mount;
+        var fileCreationOptions = WimCreateFileOptions.ShareWrite + (verify ? 2u : 0);
+        var accessMode = (int)imagingMode == 1 ? WimFileAccess.Write : WimFileAccess.Mount;
 
         using WimHandle handle = WimgApi.CreateFile(wimPath, WimFileAccess.Write, (WimCreationDisposition)imagingMode, fileCreationOptions, compression);
-
+        
         switch (imagingMode)
         {
             case ImagingMode.Create:
                 WimgApi.CaptureImage(handle, capturePath, (WimCaptureImageOptions)options).Close();
-                return;
+                break;
+
             case ImagingMode.Append:
                 var mnt = Directory.CreateDirectory(@".\wim_mount");
                 try
@@ -44,7 +45,7 @@ public static class DismApiFunctions
                     if (Directory.Exists(mnt.FullName))
                         Directory.Delete(mnt.FullName);
                 }
-                return;
+                break;
         }
     }
 }
